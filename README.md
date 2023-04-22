@@ -47,7 +47,7 @@ By running the script, the file structure will be as follows:
 ├── episode2.srt
 ```
 
-### Usage
+### Python script usage
 Simply execute the script by running:
 ```commandline
 python main.py
@@ -64,3 +64,11 @@ options:
   -r, --remove_subs_dir
                         use it if you want the `Subs` folder to be deleted when the script finishes
 ```
+
+The next example picks the subtitles in spanish and deletes the remaining files and folders no longer needed.
+```commandline
+python main.py --language=Spanish -r
+```
+
+### PowerShell script usage
+Powershell 6 or above is required to run the script.
