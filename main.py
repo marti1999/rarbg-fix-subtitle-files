@@ -9,12 +9,21 @@ import argparse
 def main():
     args = parse_arguments()
 
-    folders = glob.glob('./Subs/*')
+    # Get a list of all subfolders in the "Subs" directory
+    folders = glob.glob(os.path.join('.', 'Subs', '*'))
     subs_to_move = []
-    for f in folders:  # for each episode
 
-        subs = glob.glob(f + "/*" + args.language + "*.srt")  # get list of subtitles matching language
-        sizes = [os.path.getsize(f) for f in subs]  # get size of each subtitle file
+    # Loop through each subfolder and find subtitles for the specified language
+    for folder in folders:
+        # get list of subtitles matching language
+        subs = glob.glob(os.path.join(folder, f'*{args.language}*.srt'))
+        if not subs:
+            print(f'No {args.language} subtitles found in {folder}')
+            continue
+
+        # get size of each subtitle file
+        sizes = [os.path.getsize(f) for f in subs]
+        # get the mean of the sizes
         mean = sum(sizes) / len(sizes)
 
         if len(sizes) > 2:
@@ -73,15 +82,18 @@ def main():
             subs_to_move.append(subs[0])
             continue
 
-    # rename and move files
+    # rename and move selected files to the root directory
     for sub in subs_to_move:
         parts = Path(sub).parts
         suffix = Path(sub).suffix
-        shutil.copy(sub, "./" + parts[1] + suffix)
+        try:
+            shutil.copy(sub, os.path.join('.', parts[1] + suffix))
+        except Exception as e:
+            print(f'Error copying {sub}: {e}')
 
     # remove Subs folder and remaining files
     if args.remove_subs_dir:
-        shutil.rmtree('./Subs')
+        shutil.rmtree(os.path.join('.', 'Subs'))
 
 
 def parse_arguments():
