@@ -62,12 +62,13 @@ def main():
 def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('-l', '--language', default='English',
-                        help="Language for the subtitles you want e.g. --language=English")
+                        help="Language for the subtitles you want, English by default e.g. --language=Spanish")
     parser.add_argument('-r', '--remove_subs_dir', default=False, action='store_true',
-                        help='use if you want the Subs folder to be deleted when the script finishes')
+                        help='use it if you want the `Subs` folder to be deleted when the script finishes')
     args = parser.parse_args()
     return args
 
 
 if __name__ == "__main__":
     main()
+
