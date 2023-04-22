@@ -31,12 +31,12 @@ foreach ($f in $folders) {
       # the first being foreign language transcription and normal transcription.
       # This happens when the STD is high (one file has a small size and the other a big size).
       # Picking the bigger size one.
-      $idx = [array]::IndexOf($sizes, ($sizes | Sort-Object -Descending { [math]::Abs($_ - $mean) })[0])
+      $idx = [array]::IndexOf($sizes, ($sizes | Sort-Object -Descending)[0])
       $subs_to_move += $subs[$idx].FullName
     } else {
       # the second being normal transcription and audio description for deaf person.
       # both files have similar size, and thus a lower std. Picking the smaller size one
-      $idx = [array]::IndexOf($sizes, ($sizes | Sort-Object { [math]::Abs($_ - $mean) })[0])
+      $idx = [array]::IndexOf($sizes, ($sizes | Sort-Object)[0])
       $subs_to_move += $subs[$idx].FullName
     }
     continue
